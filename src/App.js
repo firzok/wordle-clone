@@ -1,8 +1,8 @@
-import GuessGrid from './GuessGrid';
+import GuessGrid from './GuessGrid/GuessGrid';
 import './App.css';
 import Keyboard from './Keyboard/Keyboard';
 import { targetwords, dictionary } from './wordList';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   const [submissions, setSubmissions] = useState([]);
