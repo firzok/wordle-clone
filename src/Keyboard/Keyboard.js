@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Keyboard.css';
-export default function Keyboard({ active, setActive, submitGuess }) {
+import { ACTIONS, useStateValue } from '../State';
+export default function Keyboard({ submitGuess }) {
+  const [{ active }, dispatch] = useStateValue();
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
 
@@ -39,10 +41,10 @@ export default function Keyboard({ active, setActive, submitGuess }) {
   };
   const pressKey = key => {
     if (active.length >= 5) return;
-    setActive(active => [...active, { letter: key }]);
+    dispatch({ type: ACTIONS.SETACTIVE, payload: [...active, { letter: key }] });
   };
   const deleteKey = () => {
-    setActive(active => active.slice(0, active.length - 1));
+    dispatch({ type: ACTIONS.SETACTIVE, payload: active.slice(0, active.length - 1) });
   };
 
   return (

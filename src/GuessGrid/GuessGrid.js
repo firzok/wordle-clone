@@ -1,25 +1,26 @@
 import React from 'react';
 import './GuessGrid.css';
-export default function GuessGrid({
-  active = [],
-  submissions = [],
-  shakeActive,
-  danceActive,
-  flipTiles
-}) {
+import { useStateValue } from '../State';
+export default function GuessGrid() {
+  const [{ active, submissions, shakeActive, danceActive, flipTiles }, dispatch] = useStateValue();
+
   let emptyLength = 30 - active.length - submissions.length * 5;
+
   return (
     <div className='guess-grid'>
       {submissions.map((submission, i) => {
         if (i === submissions.length - 1) {
           return submission.map((s, j) => (
-            <div className={`tile ${s.class} dance`} key={`submission-${i}`}>
+            <div
+              className={`tile ${s.class} ${danceActive ? 'dance' : ''}`}
+              key={`submission-${j}`}
+            >
               {s.letter}
             </div>
           ));
         }
         return submission.map((s, j) => (
-          <div className={`tile ${s.class}`} key={`submission-${i}`}>
+          <div className={`tile ${s.class}`} key={`submission-${j}`}>
             {s.letter}
           </div>
         ));
